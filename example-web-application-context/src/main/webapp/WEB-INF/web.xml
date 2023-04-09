@@ -1,0 +1,56 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app id="webApplicationContext">
+
+
+
+	<display-name>WAR for GA PIC</display-name>
+	
+	<!--  context-param doit précéder listener -->
+	
+	<!--	Par defaut, c'est le fichier applicationContext.xml du répertoire WEB-INF qui est chargé.
+			Dans ce cas il n'est pas nécessaire de saisir le paramètre contextConfigLocation.
+		  	Si on souhaite charger un autre fichier, ou une liste de fichier, il faut positionner ce 
+		  	paramètre en indiquant le chemin du(es) fichier(s).
+		  	
+		Exemples:
+	 -> chargement d'un autre fichier
+	<context-param>
+	    <param-name>contextConfigLocation</param-name>
+	    <param-value>/WEB-INF/rootApplicationContext.xml</param-value>
+	</context-param>
+	
+	 -> chargement de fichiers en utilisant un regex
+	<context-param>
+	    <param-name>contextConfigLocation</param-name>
+	    <param-value>/WEB-INF/*-context.xml</param-value>
+	</context-param>
+	-->
+	<context-param>
+	    <param-name>contextConfigLocation</param-name>
+	    <param-value>/WEB-INF/applicationContext1.xml, /WEB-INF/applicationContext2.xml</param-value>
+	</context-param>
+	
+	<!--  Pour les applications web, on ajoute un listener qui va gérer le WebApplicationContext.
+	  Le WebApplicationContext est une interface qui étend ApplicationContext tout en ayant un accès au ServletContext
+	-->
+	<listener>
+	    <listener-class>
+	        org.springframework.web.context.ContextLoaderListener
+	    </listener-class>
+	</listener>
+	
+
+	<servlet>
+		<servlet-name>OnLineServlet</servlet-name>
+		<servlet-class>com.laposte.pic.examples.OnLine</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>OnLineServlet</servlet-name>
+		<url-pattern>/online/*</url-pattern>
+	</servlet-mapping>
+	
+</web-app>

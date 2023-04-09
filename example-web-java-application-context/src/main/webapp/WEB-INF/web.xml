@@ -1,0 +1,61 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+
+
+
+<web-app id="webApplicationContext">
+
+
+
+	<display-name>WAR for GA PIC</display-name>
+	
+	<!--  context-param doit précéder listener -->
+
+	<!--  on indique au listener qu'on souhaite utiliser des annotations pour configurer la WebApplicationContext.
+		 On indique également ou trouver cette classe.-->	
+	<context-param>
+	    <param-name>contextClass</param-name>
+	    <param-value>
+	        org.springframework.web.context.support.AnnotationConfigWebApplicationContext
+	    </param-value>
+	</context-param>
+	
+	<!--  on aurait pu tout aussi bien désigner un package
+	<context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>com.laposte.fr.examples</param-value>
+	</context-param>
+	
+	-->
+	
+
+	<context-param>
+	    <param-name>contextConfigLocation</param-name>
+	    <param-value>com.laposte.pic.examples.SpringApplicationConfig</param-value>
+	</context-param>
+	
+	<!--  Pour les applications web, on ajoute un listener qui va gérer le WebApplicationContext.
+	  Le WebApplicationContext est une interface qui étend ApplicationContext tout en ayant un accès au ServletContext
+	-->
+	<listener>
+	    <listener-class>
+	        org.springframework.web.context.ContextLoaderListener
+	    </listener-class>
+	</listener>
+	
+	
+	
+	<servlet>
+		<servlet-name>OnLineServlet</servlet-name>
+		<servlet-class>com.laposte.pic.examples.OnLine</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>OnLineServlet</servlet-name>
+		<url-pattern>/online/*</url-pattern>
+	</servlet-mapping>
+	
+	
+</web-app>
